@@ -22,8 +22,11 @@ public class InquiryHandling extends Thread {
     public void run() {
         String nameClass = currentInquiry.getClass().getName();
         int estimationTime;
+
         switch (nameClass){
-            case "Data.Question": estimationTime=rand.nextInt(5) + 1;
+            case "Data.Question":{ estimationTime=rand.nextInt(5) + 1;
+                currentThread().setPriority(MAX_PRIORITY);
+            }
                 break;
             case "Data.Request": estimationTime=rand.nextInt(6) + 10;
                 break;
@@ -33,29 +36,17 @@ public class InquiryHandling extends Thread {
                throw new Error("erorr");
         }
         System.out.println(currentInquiry.handling()+"  estimationTime: "+estimationTime);
+
         try {
             if(estimationTime>5&&activeCount()>10)
                 Thread.yield();
             else {
                 sleep(estimationTime*1000);
+                System.out.println("finish");
             }
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
-
-        /// קשור לסעיף ב ו- ג
- //      try {
-//            if(currentThread().getClass().getName().equals(("Request")))
-//               sleep(3000);
-//            else
-//                sleep(5000);
-//            if(currentThread().getClass().getName().equals("Question"))
-//            {
-//                currentThread().setPriority(MAX_PRIORITY);
-//            }
-//        } catch (InterruptedException e) {
-//            throw new RuntimeException(e);
-//        }
     }
     @Deprecated
     public void createInquiry() throws Exception {
