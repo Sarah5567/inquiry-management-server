@@ -8,4 +8,19 @@ public class Request extends  Inquiry{
     public String handling(){
         return ("Request:"+getCode());
     }
+
+    @Override
+    public String getFolderName() {
+        return "Request";
+    }
+
+    @Override
+    public String getFileName() {
+        return ""+code;
+    }
+
+    @Override
+    public String getData() {
+        return "code: "+code+",description: "+description+",documentNames:"+documentNames.toString()+",creationDate:"+creationDate;
+    }
 }

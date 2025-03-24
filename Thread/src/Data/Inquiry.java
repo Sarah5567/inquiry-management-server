@@ -1,20 +1,22 @@
 package Data;
-
-import java.sql.SQLOutput;
+import HandleStoreFiles.IForSaving;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
-public abstract class Inquiry {
+public abstract class Inquiry implements IForSaving {
     static Integer nextCodeVal = 0;
     protected  Integer code;
     protected String description;
     protected LocalDateTime creationDate;
-
+    protected List<String> documentNames;
     Scanner scanner=new Scanner(System.in);
 
     public  Inquiry(){
         code=nextCodeVal++;
         creationDate=LocalDateTime.now();
+        documentNames=new ArrayList<>();
         fillDataByUser();
     }
     public Integer getCode() {
@@ -41,13 +43,25 @@ public abstract class Inquiry {
         this.creationDate = creationDate;
     }
 
+
     public  void fillDataByUser(){
         System.out.println("insert description");
         String des=scanner.nextLine();
         this.description=des;
+        System.out.println("do you have any documents to attach?");
+        System.out.println("enter y for yes or n for no");
+        String ans=scanner.nextLine();
+        while(ans.equals("y")){
+            System.out.println("enter the name of the document you want to attach.");
+            documentNames.add(scanner.nextLine());
+            System.out.println("do you have any documents to attach?");
+            System.out.println("enter y for yes or n for no");
+            ans=scanner.nextLine();
+        }
+        System.out.println("enter the name of the document to attach.");
     }
 
     public String handling(){
-          return "";
+        return "";
     }
 }
