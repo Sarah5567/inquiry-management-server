@@ -1,61 +1,37 @@
-package Business;
+package HandleStoreFiles;
 
-import Data.Complaint;
-import Data.Inquiry;
-import Data.Question;
-import Data.Request;
-import HandleStoreFiles.HandleFiles;
-import java.util.Scanner;
-import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.LinkedBlockingQueue;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.BasicFileAttributes;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 
-public class InquiryManager {
-    private  BlockingQueue<InquiryHandling> queue = new LinkedBlockingQueue<>();
-    private  Scanner scanner = new Scanner(System.in);
-    private boolean isInquiryCreationActive = true;
-    HandleFiles handleFiles=new HandleFiles();
-
-
-    public void inquiryCreation() {
-        Inquiry currentInquiry=null;
-        System.out.println("chose number:" +
-                "1:Question,  2:Request, 3:Complaint");
-        String choose = scanner.nextLine();
-        while (!choose.equals("exit")) {
-            switch (choose) {
-                case "1":
-                    currentInquiry=new Question();
-                    break;
-                case "2":
-                    currentInquiry=new Request();
-                    break;
-                case "3":
-                    currentInquiry=new Complaint();
-                    break;
-                default:
-                    System.out.println("error");
-            }
-            handleFiles.saveFile(currentInquiry);
-            queue.add(new InquiryHandling(currentInquiry));
-
-            System.out.println("chose number:" +
-                    "1:Question,  2:Request, 3:Complaint");
-            choose = scanner.nextLine();
-        }
-
-        isInquiryCreationActive = false;
-        System.exit(0);
+public class DeleteOldFiles extends Thread{
+    private String folderName;
+    private  int days;
+    public DeleteOldFiles(String name,int day)
+    {
+        this.folderName=name;
+        this.days=day;
     }
-    public void processInquiryManager() {
-        while (isInquiryCreationActive) {
-            try {
-                InquiryHandling inquiryHandling = queue.take();
-                if (inquiryHandling != null) {
-                    inquiryHandling.start();
+    @Override
+    public  void run(){
+        File file=new File(folderName);
+        File[]files=file.listFiles();
+        if(files!=null){
+            for (File f: files) {
+                if(f!=null) {
+                    try {
+                        BasicFileAttributes basicFileAttributes = Files.readAttributes(f.toPath(), BasicFileAttributes.class);
+                        Instant thresholdTime = Instant.now().minus(days, ChronoUnit.DAYS);
+                        if (basicFileAttributes.creationTime().toInstant().isBefore(thresholdTime)) {
+                            f.delete();
+                        }
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
-            } catch (InterruptedException e) {
-                System.out.println("Error processing inquiry: " + e.getMessage());
-                Thread.currentThread().interrupt();
             }
         }
     }

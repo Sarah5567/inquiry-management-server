@@ -1,5 +1,6 @@
 import Business.InquiryHandling;
 import Business.InquiryManager;
+import HandleStoreFiles.DeleteOldFiles;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -95,32 +96,33 @@ public class Main {
 //
 
 
-        InquiryManager inquiryManager = new InquiryManager();
+//      InquiryManager inquiryManager = new InquiryManager();
 //        inquiryManager.inquiryCreation();
 //        inquiryManager.processInquiryManager();
+//
+//
+//        Thread inquiryCreationThread = new Thread(() -> {
+//            try {
+//                inquiryManager.inquiryCreation();
+//            } catch (Exception e) {
+//                System.out.println("Error in inquiry creation: " + e.getMessage());
+//            }
+//        });
+//
+//        Thread inquiryProcessingThread = new Thread(() -> {
+//            inquiryManager.processInquiryManager();
+//        });
+//        inquiryCreationThread.start();
+//        inquiryProcessingThread.start();
+//        try {
+//            inquiryCreationThread.join();
+//            inquiryProcessingThread.join();
+//        } catch (InterruptedException e) {
+//            System.out.println("Thread interrupted: " + e.getMessage());
+//        }
 
-
-        Thread inquiryCreationThread = new Thread(() -> {
-            try {
-                inquiryManager.inquiryCreation();
-            } catch (Exception e) {
-                System.out.println("Error in inquiry creation: " + e.getMessage());
-            }
-        });
-
-        Thread inquiryProcessingThread = new Thread(() -> {
-            inquiryManager.processInquiryManager();
-        });
-        inquiryCreationThread.start();
-        inquiryProcessingThread.start();
-        try {
-            inquiryCreationThread.join();
-            inquiryProcessingThread.join();
-        } catch (InterruptedException e) {
-            System.out.println("Thread interrupted: " + e.getMessage());
-        }
-
-
+        Thread deleteOldFiles=new DeleteOldFiles("Question",1);
+        deleteOldFiles.start();
 
     }
 }
