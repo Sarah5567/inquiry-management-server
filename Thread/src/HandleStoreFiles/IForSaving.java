@@ -1,4 +1,4 @@
 package HandleStoreFiles;
 
-public class IForSaving {
+public interface IForSaving {
 }
