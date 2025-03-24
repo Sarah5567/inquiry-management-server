@@ -3,11 +3,13 @@ import Data.Complaint;
 import Data.Inquiry;
 import Data.Question;
 import Data.Request;
+import HandleStoreFiles.IForSaving;
+
 import java.util.Random;
 import java.util.Scanner;
 
 
-public class InquiryHandling extends Thread {
+public class InquiryHandling extends Thread  {
     private Inquiry currentInquiry;
     Scanner scanner = new Scanner(System.in);
     Random rand = new Random();
@@ -20,20 +22,20 @@ public class InquiryHandling extends Thread {
 
     @Override
     public void run() {
-        String nameClass = currentInquiry.getClass().getName();
+        String nameClass = currentInquiry.getClass().getSimpleName();
         int estimationTime;
 
         switch (nameClass){
-            case "Data.Question":{ estimationTime=rand.nextInt(5) + 1;
+            case "Question":{ estimationTime=rand.nextInt(5) + 1;
                 currentThread().setPriority(MAX_PRIORITY);
             }
+            break;
+            case "Request": estimationTime=rand.nextInt(6) + 10;
                 break;
-            case "Data.Request": estimationTime=rand.nextInt(6) + 10;
-                break;
-            case "Data.Complaint": estimationTime=rand.nextInt(21) + 20;
+            case "Complaint": estimationTime=rand.nextInt(21) + 20;
                 break;
             default:
-               throw new Error("erorr");
+                throw new Error("erorr");
         }
         System.out.println(currentInquiry.handling()+"  estimationTime: "+estimationTime);
 
@@ -55,11 +57,11 @@ public class InquiryHandling extends Thread {
         int num= scanner.nextInt();
         switch (num){
             case 1:currentInquiry=new Question();
-            break;
+                break;
             case 2:currentInquiry=new Request();
-            break;
+                break;
             case 3:currentInquiry=new Complaint();
-            break;
+                break;
             default:throw new Exception("error");
         }
     }
