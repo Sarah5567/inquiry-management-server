@@ -1,5 +1,6 @@
 import Business.InquiryHandling;
 import Business.InquiryManager;
+import HandleStoreFiles.FileRename;
 
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
@@ -120,7 +121,8 @@ public class Main {
             System.out.println("Thread interrupted: " + e.getMessage());
         }
 
-
+        FileRename fileRename = new FileRename("Question", "new_");
+        fileRename.start();
 
     }
 }
