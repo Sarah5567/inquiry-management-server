@@ -22,6 +22,18 @@ bin/
 /nbdist/
 /.nb-gradle/
 
+# IntelliJ IDEA
+.idea/
+.idea
+*.iml
+*.iws
+
+# Eclipse
+.project
+.classpath
+.settings/
+.metadata/
+
 ### VS Code ###
 .vscode/
 
