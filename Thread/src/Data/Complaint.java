@@ -25,6 +25,6 @@ public class Complaint extends  Inquiry{
 
     @Override
     public String getData() {
-        return "code: "+code+",description: "+description+",documentNames:"+documentNames.toString()+",creationDate:"+creationDate+"assignedBranch"+assignedBranch;
+        return className+","+ "code: "+code+",description: "+description+",documentNames:"+documentNames.toString()+",creationDate:"+creationDate+"assignedBranch"+assignedBranch;
     }
 }
