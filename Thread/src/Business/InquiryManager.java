@@ -11,7 +11,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class InquiryManager {
     private static InquiryManager instance;
-    private  BlockingQueue<InquiryHandling> queue = new LinkedBlockingQueue<>();
+    private final   BlockingQueue<InquiryHandling> queue = new LinkedBlockingQueue<>();
     private  Scanner scanner = new Scanner(System.in);
     private boolean isInquiryCreationActive = true;
     HandleFiles handleFiles=new HandleFiles();
@@ -25,7 +25,10 @@ public class InquiryManager {
         return instance;
     }
 
-
+    public void loudInqury(){
+       HandleFiles handleFile=new HandleFiles();
+       handleFile.
+    }
 
     public void inquiryCreation() {
         Inquiry currentInquiry=null;

@@ -19,6 +19,6 @@ public class Question extends  Inquiry{
 
     @Override
     public String getData() {
-        return className+","+"code: "+code+",description: "+description+",documentNames:"+documentNames.toString()+",creationDate:"+creationDate;
+        return className+","+code+","+description+","+documentNames.toString()+","+creationDate;
     }
 }

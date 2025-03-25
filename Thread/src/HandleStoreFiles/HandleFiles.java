@@ -1,5 +1,8 @@
 package HandleStoreFiles;
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.List;
 public class HandleFiles {
@@ -32,15 +35,22 @@ public class HandleFiles {
         deleteFile(forSaving);
         saveFile(forSaving);
     }
-    private void getFileName(IForSaving forSaving){
-        String fileName=forSaving.getFileName();
+    private String getFileName(IForSaving forSaving)
+    {
+        return forSaving.getFileName();
     }
-    private void getDirectoryPath(IForSaving forSaving){
-        String filePath = forSaving.getFolderName()+"/"+forSaving.getFileName();
+    private Path getDirectoryPath(IForSaving forSaving) {
+        return Paths.get(forSaving.getFolderName(),forSaving.getFileName());
     }
     public void saveFiles(List<IForSaving> forSavingList){
         for(IForSaving forSaving:forSavingList){
             saveFile(forSaving);
         }
+    }
+    public void readobject(String  fileName)
+    {
+        ArrayList<String>arrayList=new ArrayList<>();
+        File file=new File(fileName);
+
     }
 }
