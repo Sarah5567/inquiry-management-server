@@ -1,5 +1,7 @@
 package Data;
 
+import java.util.List;
+
 public class Question extends  Inquiry{
     @Override
     public String handling(){
@@ -20,5 +22,14 @@ public class Question extends  Inquiry{
     @Override
     public String getData() {
         return className+","+code+","+description+","+documentNames.toString()+","+creationDate;
+    }
+
+    @Override
+    public void parseFromFile(List<String> values) {
+        description = values.get(2);
+        String[] value = values.get(3).split(" ");
+        for (String val : value) {
+            documentNames.add(val);
+        }
     }
 }
