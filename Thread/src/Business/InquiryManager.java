@@ -5,17 +5,24 @@ import Data.Inquiry;
 import Data.Question;
 import Data.Request;
 import HandleStoreFiles.HandleFiles;
+
+import java.io.File;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class InquiryManager {
     private static InquiryManager instance;
-    private final   BlockingQueue<InquiryHandling> queue = new LinkedBlockingQueue<>();
     private  Scanner scanner = new Scanner(System.in);
     private boolean isInquiryCreationActive = true;
     HandleFiles handleFiles=new HandleFiles();
-
+    private static final BlockingQueue<InquiryHandling> queue ;
+    private static int nextCodeVal;
+    static {
+        queue=new LinkedBlockingQueue<>();
+        nextCodeVal=0;
+    }
     private InquiryManager() {
     }
 
@@ -25,9 +32,10 @@ public class InquiryManager {
         return instance;
     }
 
-    public void loudInqury(){
-       HandleFiles handleFile=new HandleFiles();
-       handleFile.
+    public void loadInqury(){
+        HandleFiles handleFiles=new HandleFiles();
+        File f = new File(String.valueOf(nextCodeVal));
+        handleFiles.readFile(f);
     }
 
     public void inquiryCreation() {
