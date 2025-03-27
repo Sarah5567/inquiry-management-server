@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class Inquiry implements IForSaving {
-    static Integer nextCodeVal = 0;
+    public static Integer nextCodeVal = 0;
     protected  Integer code;
     protected String description;
     protected LocalDateTime creationDate;
