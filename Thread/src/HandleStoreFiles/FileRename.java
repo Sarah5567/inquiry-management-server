@@ -24,7 +24,7 @@ public class FileRename extends Thread {
 
         for (File file : files){
             if(file.isFile()){
-                File newFile = new File(file.getParent(),prefix+file.getName()+".txt");
+                File newFile = new File(file.getParent(),prefix+file.getName());
                 boolean isRename =file.renameTo(newFile);
                 if(isRename)
                     System.out.println("Renamed: " + file.getName() + " -> " + newFile.getName());

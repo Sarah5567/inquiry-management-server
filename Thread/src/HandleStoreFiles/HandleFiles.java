@@ -18,7 +18,7 @@ public class HandleFiles {
         if (!file.exists())
             file.mkdir();
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file + "\\" + forSaving.getFileName()+".csv"));
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file + "\\" + forSaving.getFileName()));
             bufferedWriter.write(forSaving.getData());
             bufferedWriter.close();
         } catch (IOException e) {
