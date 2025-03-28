@@ -1,4 +1,5 @@
 package Data;
+import java.util.List;
 import java.util.Scanner;
 public class Complaint extends  Inquiry{
     Scanner scanner=new Scanner(System.in);
@@ -25,6 +26,15 @@ public class Complaint extends  Inquiry{
 
     @Override
     public String getData() {
-        return "code: "+code+",description: "+description+",documentNames:"+documentNames.toString()+",creationDate:"+creationDate+"assignedBranch"+assignedBranch;
+        return className+","+code+","+description+","+documentNames.toString()+","+creationDate+","+assignedBranch;
+    }
+
+    public void parseFromFile(List<String> values) {
+        description = values.get(2);
+        String[] value = values.get(3).split(" ");
+        for (String val : value) {
+            documentNames.add(val);
+        }
+        assignedBranch= values.get(5);
     }
 }

@@ -97,7 +97,7 @@ public class Main {
 //
 
 
-        InquiryManager inquiryManager = new InquiryManager();
+        InquiryManager inquiryManager = InquiryManager.getInstance();
 //        inquiryManager.inquiryCreation();
 //        inquiryManager.processInquiryManager();
 

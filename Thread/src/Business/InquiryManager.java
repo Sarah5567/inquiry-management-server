@@ -5,16 +5,46 @@ import Data.Inquiry;
 import Data.Question;
 import Data.Request;
 import HandleStoreFiles.HandleFiles;
+import HandleStoreFiles.IForSaving;
+
+import java.io.File;
+import java.util.Dictionary;
+import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class InquiryManager {
-    private  BlockingQueue<InquiryHandling> queue = new LinkedBlockingQueue<>();
+    private static InquiryManager instance;
     private  Scanner scanner = new Scanner(System.in);
     private boolean isInquiryCreationActive = true;
     HandleFiles handleFiles=new HandleFiles();
+    private static final BlockingQueue<InquiryHandling> queue ;
+    static {
+        queue=new LinkedBlockingQueue<>();
+    }
+    private InquiryManager() {
+        loadInqury();
+    }
 
+    public static InquiryManager getInstance(){
+        if (instance==null)
+            instance=new InquiryManager();
+        return instance;
+    }
+
+    private static void loadInqury(){
+        String [] namesFolder = {"Question","Request","Complaint"};
+        HandleFiles handleFiles=new HandleFiles();
+        for(String folder : namesFolder){
+            File directory = new File(folder);
+            File [] files = directory.listFiles();
+            for(File file : files){
+                IForSaving newObj = handleFiles.readFile(file);
+                queue.add((InquiryHandling) newObj);
+            }
+        }
+    }
 
     public void inquiryCreation() {
         Inquiry currentInquiry=null;
@@ -47,6 +77,7 @@ public class InquiryManager {
         System.exit(0);
     }
     public void processInquiryManager() {
+
         while (isInquiryCreationActive) {
             try {
                 InquiryHandling inquiryHandling = queue.take();
@@ -58,5 +89,6 @@ public class InquiryManager {
                 Thread.currentThread().interrupt();
             }
         }
+
     }
 }
