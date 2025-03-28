@@ -6,17 +6,19 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class Inquiry implements IForSaving {
-    static Integer nextCodeVal = 0;
+    public static Integer nextCodeVal = 0;
     protected  Integer code;
     protected String description;
     protected LocalDateTime creationDate;
     protected List<String> documentNames;
+    protected  String className;
     Scanner scanner=new Scanner(System.in);
 
     public  Inquiry(){
         code=nextCodeVal++;
         creationDate=LocalDateTime.now();
         documentNames=new ArrayList<>();
+        className=this.getClass().getName();
         fillDataByUser();
     }
     public Integer getCode() {
