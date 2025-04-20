@@ -8,8 +8,6 @@ import HandleStoreFiles.HandleFiles;
 import HandleStoreFiles.IForSaving;
 
 import java.io.File;
-import java.util.Dictionary;
-import java.util.LinkedList;
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -19,7 +17,7 @@ public class InquiryManager {
     private  Scanner scanner = new Scanner(System.in);
     private boolean isInquiryCreationActive = true;
     HandleFiles handleFiles=new HandleFiles();
-    private static final BlockingQueue<InquiryHandling> queue ;
+    private static final BlockingQueue<Inquiry> queue ;
     static {
         queue=new LinkedBlockingQueue<>();
     }
@@ -41,7 +39,7 @@ public class InquiryManager {
             File [] files = directory.listFiles();
             for(File file : files){
                 IForSaving newObj = handleFiles.readFile(file);
-                queue.add((InquiryHandling) newObj);
+                queue.add((Inquiry) newObj);
             }
         }
     }
@@ -66,7 +64,7 @@ public class InquiryManager {
                     System.out.println("error");
             }
             handleFiles.saveFile(currentInquiry);
-            queue.add(new InquiryHandling(currentInquiry));
+            queue.add(currentInquiry);
 
             System.out.println("chose number:" +
                     "1:Question,  2:Request, 3:Complaint");
@@ -80,7 +78,7 @@ public class InquiryManager {
 
         while (isInquiryCreationActive) {
             try {
-                InquiryHandling inquiryHandling = queue.take();
+                InquiryHandling inquiryHandling = new InquiryHandling(queue.take());
                 if (inquiryHandling != null) {
                     inquiryHandling.start();
                 }
