@@ -1,4 +1,5 @@
 package HandleStoreFiles;
+import Business.InquiryManager;
 import Data.Complaint;
 import Data.Inquiry;
 import Data.Question;
@@ -68,6 +69,8 @@ public class HandleFiles {
                     arrayList.add(value);
                 }
             }
+            InquiryManager.nextCodeVal= Integer.valueOf(arrayList.get(1));
+
             switch (arrayList.get(0)) {
                 case "Question":
                     newObj = new Question();

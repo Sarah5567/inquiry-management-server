@@ -13,6 +13,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 public class InquiryManager {
+    public static Integer nextCodeVal = 0;
     private static InquiryManager instance;
     private  Scanner scanner = new Scanner(System.in);
     private boolean isInquiryCreationActive = true;
@@ -20,9 +21,9 @@ public class InquiryManager {
     private static final BlockingQueue<Inquiry> queue ;
     static {
         queue=new LinkedBlockingQueue<>();
+        loadInqury();
     }
     private InquiryManager() {
-        loadInqury();
     }
 
     public static InquiryManager getInstance(){
@@ -32,16 +33,27 @@ public class InquiryManager {
     }
 
     private static void loadInqury(){
+        int max=nextCodeVal;
         String [] namesFolder = {"Question","Request","Complaint"};
         HandleFiles handleFiles=new HandleFiles();
         for(String folder : namesFolder){
             File directory = new File(folder);
             File [] files = directory.listFiles();
-            for(File file : files){
-                IForSaving newObj = handleFiles.readFile(file);
-                queue.add((Inquiry) newObj);
+            if (files!=null){
+            for(File file :files){
+                try{
+                    IForSaving newObj = handleFiles.readFile(file);
+                    queue.add((Inquiry) newObj);
+                    if(((Inquiry) newObj).getCode()>max)
+                        max=((Inquiry) newObj).getCode();
+                }
+                catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
             }
         }
+        nextCodeVal=max;
     }
 
     public void inquiryCreation() {
