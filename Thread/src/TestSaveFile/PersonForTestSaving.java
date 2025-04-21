@@ -2,6 +2,8 @@ package TestSaveFile;
 
 import HandleStoreFiles.IForSaving;
 
+import java.util.List;
+
 public class PersonForTestSaving implements IForSaving {
     String id;
     String name;
@@ -24,5 +26,10 @@ public class PersonForTestSaving implements IForSaving {
     @Override
     public String getData() {
         return name+","+id;
+    }
+
+    @Override
+    public void parseFromFile(List<String> values) {
+        
     }
 }
