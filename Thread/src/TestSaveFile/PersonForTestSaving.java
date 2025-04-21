@@ -30,6 +30,6 @@ public class PersonForTestSaving implements IForSaving {
 
     @Override
     public void parseFromFile(List<String> values) {
-        
+
     }
 }
