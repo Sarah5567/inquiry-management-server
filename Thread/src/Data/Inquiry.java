@@ -15,7 +15,6 @@ public abstract class Inquiry implements IForSaving {
     Scanner scanner=new Scanner(System.in);
 
     public  Inquiry(){
-        code=InquiryManager.nextCodeVal++;
         creationDate=LocalDateTime.now();
         documentNames=new ArrayList<>();
         className=this.getClass().getName();
