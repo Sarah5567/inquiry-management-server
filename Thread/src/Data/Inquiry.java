@@ -1,12 +1,14 @@
 package Data;
 import Business.InquiryManager;
 import HandleStoreFiles.IForSaving;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class Inquiry implements IForSaving {
+public abstract class Inquiry implements IForSaving , Serializable {
     protected  Integer code;
     protected String description;
     protected LocalDateTime creationDate;
