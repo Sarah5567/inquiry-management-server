@@ -1,31 +1,38 @@
 package ClientServer;
 
-import java.util.List;
-
 public class Response {
-    private InquiryManagerActions action;
-    private List<Object> parameters;
+    private ResponseStatus status;
+    String message;
+    Object result;
 
-    public Response(InquiryManagerActions action, List<Object>... parameters) {
-        this.action = action;
-        for(List<Object> p :parameters)
-            this.parameters.add(p);
+    public Response(ResponseStatus status, String message, Object result) {
+        this.status = status;
+        this.message = message;
+        this.result = result;
     }
 
-    public InquiryManagerActions getAction() {
-        return action;
+    public ResponseStatus getStatus() {
+        return status;
     }
 
-    public void setAction(InquiryManagerActions action) {
-        this.action = action;
+    public void setStatus(ResponseStatus status) {
+        this.status = status;
     }
 
-    public List<Object> getParameters() {
-        return parameters;
+    public String getMessage() {
+        return message;
     }
 
-    public void setParameters(List<Object> parameters) {
-        this.parameters = parameters;
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public Object getResult() {
+        return result;
+    }
+
+    public void setResult(Object result) {
+        this.result = result;
     }
 }
 
