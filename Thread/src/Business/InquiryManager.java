@@ -43,9 +43,10 @@ public class InquiryManager {
             for(File file :files){
                 try{
                     IForSaving newObj = handleFiles.readFile(file);
-                    queue.add((Inquiry) newObj);
-                    if(((Inquiry) newObj).getCode()>max)
-                        max=((Inquiry) newObj).getCode();
+                    Inquiry inquiry=(Inquiry)newObj;
+                    inquiry.setCode(Integer.valueOf(file.getName()));
+                    queue.add(inquiry);
+
                 }
                 catch (Exception e) {
                     throw new RuntimeException(e);
@@ -76,6 +77,7 @@ public class InquiryManager {
                     System.out.println("error");
             }
             handleFiles.saveFile(currentInquiry);
+            currentInquiry.setCode(nextCodeVal++);
             queue.add(currentInquiry);
 
             System.out.println("chose number:" +
