@@ -1,4 +1,5 @@
 package Data;
+import Business.InquiryManager;
 import HandleStoreFiles.IForSaving;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -6,7 +7,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class Inquiry implements IForSaving {
-    public static Integer nextCodeVal = 0;
     protected  Integer code;
     protected String description;
     protected LocalDateTime creationDate;
@@ -15,7 +15,7 @@ public abstract class Inquiry implements IForSaving {
     Scanner scanner=new Scanner(System.in);
 
     public  Inquiry(){
-        code=nextCodeVal++;
+        code=InquiryManager.nextCodeVal++;
         creationDate=LocalDateTime.now();
         documentNames=new ArrayList<>();
         className=this.getClass().getName();
