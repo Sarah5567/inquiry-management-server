@@ -8,6 +8,7 @@ import HandleStoreFiles.HandleFiles;
 import HandleStoreFiles.IForSaving;
 
 import java.io.File;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -100,5 +101,12 @@ public class InquiryManager {
             }
         }
 
+    }
+    public Queue<Inquiry> allInquiry(){
+        return queue;
+    }
+    public void addInquiry(Inquiry inquiry){
+        handleFiles.saveFile(inquiry);
+        queue.add(inquiry);
     }
 }
