@@ -1,12 +1,13 @@
 package ClientServer;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Response {
+public class Request implements Serializable {
     private InquiryManagerActions action;
     private List<Object> parameters;
 
-    public Response(InquiryManagerActions action, List<Object>... parameters) {
+    public Request(InquiryManagerActions action, List<Object>... parameters) {
         this.action = action;
         for(List<Object> p :parameters)
             this.parameters.add(p);
@@ -27,5 +28,5 @@ public class Response {
     public void setParameters(List<Object> parameters) {
         this.parameters = parameters;
     }
-}
 
+}

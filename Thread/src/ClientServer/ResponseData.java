@@ -1,11 +1,13 @@
 package ClientServer;
 
-public class Request {
+import java.io.Serializable;
+
+public class Response implements Serializable {
     private ResponseStatus status;
     String message;
     Object result;
 
-    public Request(ResponseStatus status, String message, Object result) {
+    public Response(ResponseStatus status, String message, Object result) {
         this.status = status;
         this.message = message;
         this.result = result;
@@ -35,3 +37,4 @@ public class Request {
         this.result = result;
     }
 }
+
