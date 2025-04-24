@@ -3,11 +3,11 @@ package ClientServer;
 import java.io.Serializable;
 import java.util.List;
 
-public class Request implements Serializable {
+public class RequestData implements Serializable {
     private InquiryManagerActions action;
     private List<Object> parameters;
 
-    public Request(InquiryManagerActions action, List<Object>... parameters) {
+    public RequestData(InquiryManagerActions action, List<Object>... parameters) {
         this.action = action;
         for(List<Object> p :parameters)
             this.parameters.add(p);
