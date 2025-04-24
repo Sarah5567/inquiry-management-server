@@ -109,6 +109,7 @@ public class InquiryManager {
     }
     public void addInquiry(Inquiry inquiry){
         handleFiles.saveFile(inquiry);
+        inquiry.setCode(nextCodeVal++);
         queue.add(inquiry);
     }
 }
