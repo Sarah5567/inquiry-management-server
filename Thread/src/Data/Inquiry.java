@@ -14,7 +14,6 @@ public abstract class Inquiry implements IForSaving , Serializable {
     protected LocalDateTime creationDate;
     protected List<String> documentNames;
     protected  String className;
-    Scanner scanner=new Scanner(System.in);
 
     public  Inquiry(){
         creationDate=LocalDateTime.now();
@@ -48,6 +47,7 @@ public abstract class Inquiry implements IForSaving , Serializable {
 
 
     public  void fillDataByUser(){
+        Scanner scanner=new Scanner(System.in);
         System.out.println("insert description");
         String des=scanner.nextLine();
         this.description=des;

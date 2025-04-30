@@ -2,10 +2,11 @@ package Data;
 import java.util.List;
 import java.util.Scanner;
 public class Complaint extends  Inquiry{
-    Scanner scanner=new Scanner(System.in);
+
     private String assignedBranch;
     @Override
     public void fillDataByUser(){
+        Scanner scanner=new Scanner(System.in);
         super.fillDataByUser();
         System.out.println("insert assignedBranch");
         String assignedBranch=scanner.nextLine();

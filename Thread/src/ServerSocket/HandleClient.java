@@ -1,8 +1,6 @@
 package ServerSocket;
 import Business.InquiryManager;
-import ClientServer.RequestData;
-import ClientServer.ResponseData;
-import ClientServer.ResponseStatus;
+import ClientServer.*;
 import Data.Inquiry;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -18,8 +16,9 @@ public class HandleClient extends Thread{
     public void handleClientRequest(){
         try {
             ObjectInputStream objectInputStream =new ObjectInputStream(clientSocket.getInputStream());
-            Object obj=  objectInputStream.readObject();
-            RequestData newRequest=(RequestData) obj;
+//            Object obj=
+            RequestData newRequest=(RequestData) objectInputStream.readObject();
+            System.out.println("after recive");
             Queue<Inquiry> queue;
             ResponseData response;
             switch (newRequest.getAction().toString())
@@ -35,13 +34,13 @@ public class HandleClient extends Thread{
                 }
                     break;
                 case "ADD_INQUIRY":
-                    inquiryManager.addInquiry((Inquiry) newRequest.getParameters().get(0));
+                    inquiryManager.addInquiry((Inquiry) newRequest.getParameters()[0]);
                     break;
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         } catch (ClassNotFoundException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
     @Override

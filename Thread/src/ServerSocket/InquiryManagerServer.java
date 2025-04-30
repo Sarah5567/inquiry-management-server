@@ -15,9 +15,10 @@ public class InquiryManagerServer {
     public void start(){
         try {
             Socket socket=myServer.accept();
+            System.out.println("client connet");
             HandleClient handleClient=new HandleClient(socket);
             handleClient.start();
-            socket.close();
+            //socket.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

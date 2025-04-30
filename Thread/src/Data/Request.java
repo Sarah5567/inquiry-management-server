@@ -2,7 +2,6 @@ package Data;
 
 import java.util.List;
 
-import static java.lang.Thread.sleep;
 
 public class Request extends  Inquiry{
     public  Request(){}
