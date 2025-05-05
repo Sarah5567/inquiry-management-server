@@ -13,14 +13,16 @@ public class InquiryManagerServer {
         }
     }
     public void start(){
-        try {
-            Socket socket=myServer.accept();
-            System.out.println("client connet");
-            HandleClient handleClient=new HandleClient(socket);
-            handleClient.start();
-            //socket.close();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        while (true) {
+            try {
+                Socket socket = myServer.accept();
+                System.out.println("client connet");
+                HandleClient handleClient = new HandleClient(socket);
+                handleClient.start();
+                //socket.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     public  void stop(){

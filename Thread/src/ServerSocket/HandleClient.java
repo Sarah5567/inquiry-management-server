@@ -14,9 +14,11 @@ public class HandleClient extends Thread{
     public HandleClient(Socket clientSocket){
         this.clientSocket=clientSocket;
     }
+    ObjectInputStream objectInputStream=null;
+    ObjectOutputStream objectOutputStream=null;
     public void handleClientRequest(){
         try {
-            ObjectInputStream objectInputStream =new ObjectInputStream(clientSocket.getInputStream());
+            objectInputStream=new ObjectInputStream(clientSocket.getInputStream());
 //            Object obj=
             RequestData newRequest=(RequestData) objectInputStream.readObject();
             System.out.println("after recive");
@@ -43,12 +45,22 @@ public class HandleClient extends Thread{
 
             }
 
-            ObjectOutputStream objectOutputStream=new ObjectOutputStream(clientSocket.getOutputStream());
+            objectOutputStream=new ObjectOutputStream(clientSocket.getOutputStream());
             objectOutputStream.writeObject(response);
+
         } catch (IOException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        }
+        finally {
+            try {
+                objectInputStream.close();
+                objectOutputStream.close();
+                clientSocket.close();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
     @Override
