@@ -2,6 +2,7 @@ package Data;
 import java.util.List;
 import java.util.Scanner;
 public class Complaint extends  Inquiry{
+    private static final long serialVersionUID = 1234567L;
 
     private String assignedBranch;
     @Override

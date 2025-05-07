@@ -36,7 +36,7 @@ public class HandleClient extends Thread{
                         break;
                         case "ADD_INQUIRY":
                             inquiryManager.addInquiry((Inquiry) newRequest.getParameters()[0]);
-                            // response
+                             response=new ResponseData(ResponseStatus.SCCESS,"khnbv","jkhgg");
                             break;
                         case "TEST":
                             response = new ResponseData(ResponseStatus.SCCESS, "test", "test");
@@ -44,19 +44,20 @@ public class HandleClient extends Thread{
                     }
                     objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
                     objectOutputStream.writeObject(response);
+                    System.out.println("send");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             } finally {
-                try {
-                    objectInputStream.close();
-                    objectOutputStream.close();
-                    clientSocket.close();
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
+//                try {
+//                    objectInputStream.close();
+//                    objectOutputStream.close();
+//                    clientSocket.close();
+//                } catch (IOException e) {
+//                    throw new RuntimeException(e);
+//                }
             }
 
     }

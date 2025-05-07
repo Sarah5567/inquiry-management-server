@@ -7,7 +7,7 @@ public class InquiryManagerServer {
     ServerSocket myServer;
     public InquiryManagerServer(){
         try {
-            myServer=new ServerSocket(7000);
+            myServer=new ServerSocket(8000);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

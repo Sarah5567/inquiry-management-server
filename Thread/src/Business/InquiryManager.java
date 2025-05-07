@@ -22,7 +22,7 @@ public class InquiryManager {
     private static final BlockingQueue<Inquiry> queue ;
     static {
         queue=new LinkedBlockingQueue<>();
-        loadInqury();
+        //loadInqury();
     }
     private InquiryManager() {
     }
@@ -108,8 +108,8 @@ public class InquiryManager {
         return queue;
     }
     public void addInquiry(Inquiry inquiry){
-        handleFiles.saveFile(inquiry);
         inquiry.setCode(nextCodeVal++);
+        handleFiles.saveFile(inquiry);
         queue.add(inquiry);
     }
 }

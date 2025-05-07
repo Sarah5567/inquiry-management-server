@@ -8,12 +8,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class Inquiry implements IForSaving , Serializable {
+public abstract class Inquiry implements IForSaving,Serializable
+       {
     protected  Integer code;
     protected String description;
     protected LocalDateTime creationDate;
     protected List<String> documentNames;
     protected  String className;
+    private static final long serialVersionUID = 1234567L;
+
 
     public  Inquiry(){
         creationDate=LocalDateTime.now();
