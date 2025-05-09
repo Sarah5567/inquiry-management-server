@@ -3,7 +3,7 @@ package Data;
 import java.util.List;
 
 public class Question extends  Inquiry{
-   private static final long serialVersionUID = 1234567L;
+  private static final long serialVersionUID = 1234567L;
 
     @Override
     public String handling(){

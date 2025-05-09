@@ -7,7 +7,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.Queue;
-
 public class HandleClient extends Thread{
     Socket clientSocket;
     InquiryManager inquiryManager=InquiryManager.getInstance();
@@ -18,7 +17,6 @@ public class HandleClient extends Thread{
     ObjectOutputStream objectOutputStream=null;
     public void handleClientRequest(){
             try {
-                while(true) {
                     objectInputStream = new ObjectInputStream(clientSocket.getInputStream());
                     RequestData newRequest = (RequestData) objectInputStream.readObject();
                     System.out.println("after recive");
@@ -40,13 +38,18 @@ public class HandleClient extends Thread{
                             break;
                         case "TEST":
                             response = new ResponseData(ResponseStatus.SCCESS, "test", "test");
-
+                            break;
                     }
                     objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
                     objectOutputStream.writeObject(response);
                     System.out.println("send");
-                }
-            } catch (IOException e) {
+                    objectInputStream.close();
+                    objectInputStream.close();
+
+                clientSocket.close();
+
+
+    } catch (IOException e) {
                 e.printStackTrace();
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();

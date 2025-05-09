@@ -14,11 +14,13 @@ public class InquiryManagerServer {
     }
     public void start(){
             try {
+                while (true){
                 Socket socket = myServer.accept();
                 System.out.println("client connet");
                 HandleClient handleClient = new HandleClient(socket);
-                handleClient.start();
-                //socket.close();
+                //handleClient.start();
+                Thread thread=new Thread(handleClient);
+                thread.start();}
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

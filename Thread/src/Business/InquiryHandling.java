@@ -3,12 +3,8 @@ import Data.Complaint;
 import Data.Inquiry;
 import Data.Question;
 import Data.Request;
-import HandleStoreFiles.IForSaving;
-
 import java.util.Random;
 import java.util.Scanner;
-
-
 public class InquiryHandling extends Thread  {
     private Inquiry currentInquiry;
     Scanner scanner = new Scanner(System.in);

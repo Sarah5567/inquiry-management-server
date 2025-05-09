@@ -28,9 +28,10 @@ public abstract class Inquiry implements IForSaving,Serializable
         return code;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
-    }
+  public abstract void setCode(Integer code);
+//    {
+//        this.code = code;
+//    }
 
     public String getDescription() {
         return description;
