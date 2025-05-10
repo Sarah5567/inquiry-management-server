@@ -16,6 +16,8 @@ public abstract class Inquiry implements IForSaving,Serializable
     protected List<String> documentNames;
     protected  String className;
     private static final long serialVersionUID = 1234567L;
+    private transient Scanner scanner=new Scanner(System.in);
+
 
 
     public  Inquiry(){
@@ -28,10 +30,10 @@ public abstract class Inquiry implements IForSaving,Serializable
         return code;
     }
 
-  public abstract void setCode(Integer code);
-//    {
-//        this.code = code;
-//    }
+  public void setCode(Integer code)
+    {
+        this.code = code;
+    }
 
     public String getDescription() {
         return description;
@@ -51,7 +53,6 @@ public abstract class Inquiry implements IForSaving,Serializable
 
 
     public  void fillDataByUser(){
-        Scanner scanner=new Scanner(System.in);
         System.out.println("insert description");
         String des=scanner.nextLine();
         this.description=des;
