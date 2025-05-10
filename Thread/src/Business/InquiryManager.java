@@ -18,7 +18,7 @@ public class InquiryManager {
     private static final BlockingQueue<Inquiry> queue ;
     static {
         queue=new LinkedBlockingQueue<>();
-        loadInqiury();
+        loadInquiry();
     }
     private InquiryManager() {
     }
@@ -29,7 +29,7 @@ public class InquiryManager {
         return instance;
     }
 
-    private static void loadInqury(){
+    private static void loadInquiry(){
         int max=nextCodeVal;
         String [] namesFolder = {"Question","Request","Complaint"};
         HandleFiles handleFiles=new HandleFiles();
