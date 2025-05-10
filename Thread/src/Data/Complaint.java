@@ -7,8 +7,8 @@ public class Complaint extends  Inquiry{
     private String assignedBranch;
     @Override
     public void fillDataByUser(){
-        Scanner scanner=new Scanner(System.in);
         super.fillDataByUser();
+        Scanner scanner=new Scanner(System.in);
         System.out.println("insert assignedBranch");
         String assignedBranch=scanner.nextLine();
         this.assignedBranch=assignedBranch;
