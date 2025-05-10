@@ -18,7 +18,7 @@ public class InquiryManager {
     private static final BlockingQueue<Inquiry> queue ;
     static {
         queue=new LinkedBlockingQueue<>();
-        //loadInqury();
+        loadInqiury();
     }
     private InquiryManager() {
     }
