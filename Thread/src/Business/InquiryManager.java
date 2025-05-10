@@ -1,11 +1,7 @@
 package Business;
 
-import Data.Complaint;
-import Data.Inquiry;
-import Data.Question;
-import Data.Request;
-import HandleStoreFiles.HandleFiles;
-import HandleStoreFiles.IForSaving;
+import Data.*;
+import HandleStoreFiles.*;
 
 import java.io.File;
 import java.util.Queue;
