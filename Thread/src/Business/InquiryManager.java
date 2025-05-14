@@ -1,13 +1,10 @@
 package Business;
 
-import Data.Complaint;
-import Data.Inquiry;
-import Data.Question;
-import Data.Request;
-import HandleStoreFiles.HandleFiles;
-import HandleStoreFiles.IForSaving;
+import Data.*;
+import HandleStoreFiles.*;
 
 import java.io.File;
+import java.util.Queue;
 import java.util.Scanner;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -21,7 +18,7 @@ public class InquiryManager {
     private static final BlockingQueue<Inquiry> queue ;
     static {
         queue=new LinkedBlockingQueue<>();
-        loadInqury();
+        loadInquiry();
     }
     private InquiryManager() {
     }
@@ -32,7 +29,7 @@ public class InquiryManager {
         return instance;
     }
 
-    private static void loadInqury(){
+    private static void loadInquiry(){
         int max=nextCodeVal;
         String [] namesFolder = {"Question","Request","Complaint"};
         HandleFiles handleFiles=new HandleFiles();
@@ -102,5 +99,14 @@ public class InquiryManager {
             }
         }
 
+    }
+    public Queue<Inquiry> allInquiry(){
+        return queue;
+    }
+    public void addInquiry(Inquiry inquiry){
+        inquiry.setCode(nextCodeVal++);
+        handleFiles.saveFile(inquiry);
+        System.out.println(inquiry.getData());
+        queue.add(inquiry);
     }
 }

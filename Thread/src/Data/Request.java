@@ -2,9 +2,10 @@ package Data;
 
 import java.util.List;
 
-import static java.lang.Thread.sleep;
 
 public class Request extends  Inquiry{
+    private static final long serialVersionUID = 1234567L;
+
     public  Request(){}
     @Override
     public String handling(){

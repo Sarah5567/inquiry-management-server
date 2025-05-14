@@ -2,11 +2,13 @@ package Data;
 import java.util.List;
 import java.util.Scanner;
 public class Complaint extends  Inquiry{
-    Scanner scanner=new Scanner(System.in);
+    private static final long serialVersionUID = 1234567L;
+
     private String assignedBranch;
     @Override
     public void fillDataByUser(){
         super.fillDataByUser();
+        Scanner scanner=new Scanner(System.in);
         System.out.println("insert assignedBranch");
         String assignedBranch=scanner.nextLine();
         this.assignedBranch=assignedBranch;

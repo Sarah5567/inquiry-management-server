@@ -1,11 +1,13 @@
 package ClientServer;
 
-public class Response {
+import java.io.Serializable;
+
+public class ResponseData implements Serializable {
     private ResponseStatus status;
     String message;
     Object result;
 
-    public Response(ResponseStatus status, String message, Object result) {
+    public ResponseData(ResponseStatus status, String message, Object result) {
         this.status = status;
         this.message = message;
         this.result = result;

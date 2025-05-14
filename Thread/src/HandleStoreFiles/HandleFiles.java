@@ -1,15 +1,11 @@
 package HandleStoreFiles;
-import Business.InquiryManager;
-import Data.Complaint;
-import Data.Inquiry;
-import Data.Question;
-import Data.Request;
+import Business.*;
+import Data.*;
 
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.List;
 public class HandleFiles {
 

@@ -1,18 +1,24 @@
 package Data;
 import Business.InquiryManager;
 import HandleStoreFiles.IForSaving;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public abstract class Inquiry implements IForSaving {
+public abstract class Inquiry implements IForSaving,Serializable
+       {
     protected  Integer code;
     protected String description;
     protected LocalDateTime creationDate;
     protected List<String> documentNames;
     protected  String className;
-    Scanner scanner=new Scanner(System.in);
+    private static final long serialVersionUID = 1234567L;
+    private transient Scanner scanner=new Scanner(System.in);
+
+
 
     public  Inquiry(){
         creationDate=LocalDateTime.now();
@@ -24,7 +30,8 @@ public abstract class Inquiry implements IForSaving {
         return code;
     }
 
-    public void setCode(Integer code) {
+  public void setCode(Integer code)
+    {
         this.code = code;
     }
 
