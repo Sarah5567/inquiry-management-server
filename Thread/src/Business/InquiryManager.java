@@ -4,8 +4,7 @@ import Data.*;
 import HandleStoreFiles.*;
 
 import java.io.File;
-import java.util.Queue;
-import java.util.Scanner;
+import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -16,6 +15,7 @@ public class InquiryManager {
     private boolean isInquiryCreationActive = true;
     HandleFiles handleFiles=new HandleFiles();
     private static final BlockingQueue<Inquiry> queue ;
+    private Map<Representative,Inquiry>inquiryHandlingMap=new HashMap<>();
     static {
         queue=new LinkedBlockingQueue<>();
         //loadInquiry();

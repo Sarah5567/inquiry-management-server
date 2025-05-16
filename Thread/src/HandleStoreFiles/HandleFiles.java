@@ -56,33 +56,41 @@ public class HandleFiles {
     public IForSaving readFile(File f) {
         ArrayList<String> arrayList = new ArrayList<>();
         Inquiry newObj = null;
-
+        Representative representative = null;
         try (BufferedReader br = new BufferedReader(new FileReader(f))) {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
+                System.out.println(values.length);
                 for (String value : values) {
                     arrayList.add(value);
                 }
             }
-            InquiryManager.nextCodeVal= Integer.valueOf(arrayList.get(1));
+            System.out.println(arrayList.size());
+            InquiryManager.nextCodeVal = Integer.valueOf(arrayList.get(1));
 
             switch (arrayList.get(0)) {
                 case "Question":
                     newObj = new Question();
+                    newObj.parseFromFile(arrayList);
                     break;
                 case "Request":
                     newObj = new Request();
+                    newObj.parseFromFile(arrayList);
                     break;
                 case "Complaint":
                     newObj = new Complaint();
+                    newObj.parseFromFile(arrayList);
+                    break;
+                case "Representative":
+                    representative = new Representative();
+                    representative.parseFromFile(arrayList);
                     break;
             }
-            newObj.parseFromFile(arrayList);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return newObj;
+        return newObj == null ? representative : newObj;
     }
 }
 
