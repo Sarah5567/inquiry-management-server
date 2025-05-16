@@ -23,13 +23,15 @@ public class Question extends  Inquiry{
 
     @Override
     public String getData() {
-        return className+","+code+","+description+","+documentNames.toString()+","+creationDate;
+        return className+","+code+","+description+","+status+","+representativeID+","+documentNames.toString()+","+creationDate;
     }
 
     @Override
     public void parseFromFile(List<String> values) {
         description = values.get(2);
-        String[] value = values.get(3).split(" ");
+        status = InquiryStaus.valueOf(values.get(3));
+        representativeID = Integer.parseInt(values.get(4));
+        String[] value = values.get(5).split(" ");
         for (String val : value) {
             documentNames.add(val);
         }
