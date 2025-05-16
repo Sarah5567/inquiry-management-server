@@ -15,6 +15,7 @@ public abstract class Inquiry implements IForSaving,Serializable {
     protected List<String> documentNames;
     protected  String className;
     protected InquiryStaus status;
+    protected int representativeID;
     private static final long serialVersionUID = 1234567L;
     private transient Scanner scanner=new Scanner(System.in);
 
@@ -53,6 +54,14 @@ public abstract class Inquiry implements IForSaving,Serializable {
 
     public void setStatus(InquiryStaus status) {
         this.status = status;
+    }
+
+    public int getRepresentativeID() {
+        return representativeID;
+    }
+
+    public void setRepresentativeID(int representativeID) {
+        this.representativeID = representativeID;
     }
 
     public  void fillDataByUser(){
