@@ -28,15 +28,18 @@ public class Complaint extends  Inquiry{
 
     @Override
     public String getData() {
-        return className+","+code+","+description+","+documentNames.toString()+","+creationDate+","+assignedBranch;
+        return className+","+code+","+description+","+status+","+representativeID+","+assignedBranch+","+documentNames.toString()+","+creationDate;
     }
 
     public void parseFromFile(List<String> values) {
         description = values.get(2);
-        String[] value = values.get(3).split(" ");
+        status = InquiryStaus.valueOf(values.get(3));
+        representativeID = Integer.parseInt(values.get(4));
+        assignedBranch= values.get(5);
+        String[] value = values.get(6).split(" ");
         for (String val : value) {
             documentNames.add(val);
         }
-        assignedBranch= values.get(5);
+
     }
 }
