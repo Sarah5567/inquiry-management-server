@@ -1,24 +1,21 @@
 package Business;
-import Data.Complaint;
-import Data.Inquiry;
-import Data.Question;
-import Data.Request;
+import Data.*;
+
 import java.util.Random;
 import java.util.Scanner;
 public class InquiryHandling extends Thread  {
-    private Inquiry currentInquiry;
+    private Inquiry inquiry;
+    private Representative representative;
     Scanner scanner = new Scanner(System.in);
     Random rand = new Random();
-    public InquiryHandling(Inquiry inquiry) {
-        this.currentInquiry=inquiry;
-    }
-    public  InquiryHandling()
-    {
+    public InquiryHandling(Inquiry inquiry, Representative representative){
+        this.inquiry = inquiry;
+        this.representative = representative;
     }
 
     @Override
     public void run() {
-        String nameClass = currentInquiry.getClass().getSimpleName();
+        String nameClass = inquiry.getClass().getSimpleName();
         int estimationTime;
 
         switch (nameClass){
@@ -33,7 +30,7 @@ public class InquiryHandling extends Thread  {
             default:
                 throw new Error("erorr");
         }
-        System.out.println(currentInquiry.handling()+"  estimationTime: "+estimationTime);
+        System.out.println(inquiry.handling()+"  estimationTime: "+estimationTime);
 
         try {
             if(estimationTime>5&&activeCount()>10)
@@ -52,11 +49,11 @@ public class InquiryHandling extends Thread  {
                 "1:Question,  2:Request, 3:Complaint");
         int num= scanner.nextInt();
         switch (num){
-            case 1:currentInquiry=new Question();
+            case 1:inquiry=new Question();
                 break;
-            case 2:currentInquiry=new Request();
+            case 2:inquiry=new Request();
                 break;
-            case 3:currentInquiry=new Complaint();
+            case 3:inquiry=new Complaint();
                 break;
             default:throw new Exception("error");
         }
