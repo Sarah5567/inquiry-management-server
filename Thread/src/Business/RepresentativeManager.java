@@ -12,10 +12,7 @@ public class RepresentativeManager {
     static Queue<Representative> availableRepresentatives;
     private static RepresentativeManager instance;
 
-    private RepresentativeManager() {
-
-
-    }
+    private RepresentativeManager() { }
 
     static Scanner scanner = new Scanner(System.in);
 
@@ -29,6 +26,10 @@ public class RepresentativeManager {
         if (instance == null)
             instance = new RepresentativeManager();
         return instance;
+    }
+
+    public Queue<Representative> getAvailableRepresentatives(){
+        return availableRepresentatives;
     }
 
     public static Representative createRepresentative() {
