@@ -92,6 +92,46 @@ public class HandleFiles {
         }
         return newObj == null ? representative : newObj;
     }
+    public void moveInquiryToHistory(IForSaving iforSavingToDelete){
+        boolean foundToDelete = false;
+        Inquiry inquiryToDelete = (Inquiry)iforSavingToDelete;
+        File[] folders = {
+                new File("Complaint"),
+                new File("Request"),
+                new File("Question")
+        };
+        for (File folder : folders) {
+            if (foundToDelete) break;
+            File[] files = folder.listFiles();
+            if (files != null)
+                for (File file : files) {
+                    try {
+                        Inquiry inquiryFromFile = (Inquiry) readFile(file);
+                        if (inquiryToDelete.getCode() == inquiryFromFile.getCode()) {
+                            deleteFile(iForSaving(inquiryFromFile));
+                            saveInquiryInHistory(iforSavingToDelete);
+                            foundToDelete = true;
+                            break;
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+        }
+        return result;
+    }
+    public void saveInquiryInHistory(IForSaving iForSaving){
+        File file = new File("History");
+        if (!file.exists())
+            file.mkdir();
+        try {
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file + "\\" + iforSaving.getFileName()));
+            bufferedWriter.write(iforSaving.getData());
+            bufferedWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
 
