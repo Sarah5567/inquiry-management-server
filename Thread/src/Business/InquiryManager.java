@@ -86,7 +86,6 @@ public class InquiryManager {
         System.exit(0);
     }
     public void processInquiryManager() {
-
         while (isInquiryCreationActive) {
             try {
                 InquiryHandling inquiryHandling = new InquiryHandling(queue.take());
