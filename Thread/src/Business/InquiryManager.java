@@ -85,20 +85,20 @@ public class InquiryManager {
         isInquiryCreationActive = false;
         System.exit(0);
     }
-    public void processInquiryManager() {
-        while (isInquiryCreationActive) {
-            try {
-                InquiryHandling inquiryHandling = new InquiryHandling(queue.take());
-                if (inquiryHandling != null) {
-                    inquiryHandling.start();
-                }
-            } catch (InterruptedException e) {
-                System.out.println("Error processing inquiry: " + e.getMessage());
-                Thread.currentThread().interrupt();
-            }
-        }
-
-    }
+//    public void processInquiryManager() {
+//        while (isInquiryCreationActive) {
+//            try {
+//                InquiryHandling inquiryHandling = new InquiryHandling(queue.take());
+//                if (inquiryHandling != null) {
+//                    inquiryHandling.start();
+//                }
+//            } catch (InterruptedException e) {
+//                System.out.println("Error processing inquiry: " + e.getMessage());
+//                Thread.currentThread().interrupt();
+//            }
+//        }
+//
+//    }
     public Queue<Inquiry> allInquiry(){
         return queue;
     }
@@ -109,6 +109,7 @@ public class InquiryManager {
         queue.add(inquiry);
     }
     public void closeInquiry(Inquiry inquiry, Representative representative){
-        
+        new HandleFiles().moveInquiryToHistory(inquiry);
+        RepresentativeManager.getInstance().getAvailableRepresentatives().add(representative);
     }
 }
