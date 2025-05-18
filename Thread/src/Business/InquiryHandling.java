@@ -28,10 +28,10 @@ public class InquiryHandling extends Thread  {
             case "Complaint": estimationTime=rand.nextInt(21) + 20;
                 break;
             default:
-                throw new Error("erorr");
+                throw new Error("error");
         }
         System.out.println(inquiry.handling()+"  estimationTime: "+estimationTime);
-
+        System.out.println("representative:" + representative.getName());
         try {
             if(estimationTime>5&&activeCount()>10)
                 Thread.yield();
@@ -42,6 +42,7 @@ public class InquiryHandling extends Thread  {
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
+        InquiryManager.getInstance().closeInquiry(inquiry, representative);
     }
     @Deprecated
     public void createInquiry() throws Exception {
