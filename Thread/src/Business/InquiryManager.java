@@ -21,6 +21,7 @@ public class InquiryManager {
         //loadInquiry();
     }
     private InquiryManager() {
+        new MatchingThread().start();
     }
 
     public static InquiryManager getInstance(){
