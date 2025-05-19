@@ -15,7 +15,7 @@ public class InquiryManager {
     private boolean isInquiryCreationActive = true;
     HandleFiles handleFiles=new HandleFiles();
     private static final BlockingQueue<Inquiry> queue ;
-    private Map<Representative,Inquiry>inquiryHandlingMap=new HashMap<>();
+    private Map<Integer,Inquiry>inquiryHandlingMap=new HashMap<>();
     static {
         queue=new LinkedBlockingQueue<>();
         //loadInquiry();
@@ -107,10 +107,12 @@ public class InquiryManager {
         inquiry.setCode(nextCodeVal++);
         handleFiles.saveFile(inquiry);
         System.out.println(inquiry.getData());
+        inquiryHandlingMap.put(inquiry.getCode(),inquiry);
         queue.add(inquiry);
     }
     public void closeInquiry(Inquiry inquiry, Representative representative){
         new HandleFiles().moveInquiryToHistory(inquiry);
+        inquiryHandlingMap.remove(inquiry.getCode());
         RepresentativeManager.getInstance().getAvailableRepresentatives().add(representative);
     }
 }
