@@ -142,4 +142,15 @@ public class InquiryManager {
         inquiryHandlingMap.remove(inquiry.getCode());
         RepresentativeManager.getInstance().getAvailableRepresentatives().add(representative);
     }
+    public boolean cancelInquiry(int inquiryId){
+        if(inquiryHandlingMap.containsKey(inquiryId)
+            && inquiryHandlingMap.get(inquiryId).getStatus() == InquiryStaus.OPEN)
+        {
+            Inquiry inquiry = inquiryHandlingMap.remove(inquiryId);
+            inquiry.setStatus(InquiryStaus.CANCELED);
+            new HandleFiles().moveInquiryToHistory(inquiry);
+            return true;
+        }
+        return true;
+    }
 }
