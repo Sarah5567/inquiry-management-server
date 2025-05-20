@@ -119,14 +119,13 @@ public class RepresentativeManager {
         }
         return null;
     }
-    public Map<Representative,Inquiry> getAllRepresentatives(){
+    public Map<Integer,Inquiry> getAllRepresentatives(){
         InquiryManager inquiryManager=InquiryManager.getInstance();
         Map<Integer,Inquiry>inquiryHandlingMap=inquiryManager.getInquiryHandlingMap();
-        Map<Representative,Inquiry>activeRepresentatives=new HashMap<>();
+        Map<Integer,Inquiry>activeRepresentatives=new HashMap<>();
         for(Inquiry inquiry:inquiryHandlingMap.values()){
             if(inquiry.getStatus()==InquiryStaus.IN_HANDLING){
-                Representative representative=returnRepresentativeById(inquiry.getCode());
-                activeRepresentatives.put(representative,inquiry);
+                activeRepresentatives.put(inquiry.getRepresentativeID(),inquiry);
             }
         }
         return  activeRepresentatives;
