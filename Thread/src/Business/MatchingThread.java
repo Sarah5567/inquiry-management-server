@@ -1,6 +1,7 @@
 package Business;
 
 import Data.Inquiry;
+import Data.InquiryStaus;
 import Data.Representative;
 
 import java.util.Queue;
@@ -25,6 +26,8 @@ public class MatchingThread extends Thread{
             if(!inquiryQueue.isEmpty() && !representativeQueue.isEmpty()){
                 Inquiry inquiry = inquiryQueue.poll();
                 Representative representative = representativeQueue.poll();
+                inquiry.setRepresentativeID(representative.getID());
+                inquiry.setStatus(InquiryStaus.IN_HANDLING);
                 new InquiryHandling(inquiry, representative).start();
             }
         }
