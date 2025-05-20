@@ -1,5 +1,6 @@
 package ServerSocket;
 import Business.InquiryManager;
+import Business.RepresentativeManager;
 import ClientServer.*;
 import Data.Inquiry;
 import Data.Representative;
@@ -8,10 +9,12 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.Map;
 import java.util.Queue;
 public class HandleClient extends Thread{
     Socket clientSocket;
     InquiryManager inquiryManager=InquiryManager.getInstance();
+    RepresentativeManager representativeManager=RepresentativeManager.getInstance();
     public HandleClient(Socket clientSocket){
         this.clientSocket=clientSocket;
     }
@@ -42,10 +45,23 @@ public class HandleClient extends Thread{
                             response = new ResponseData(ResponseStatus.SCCESS, "test", "test");
                             break;
                         case "RETURN_REPRESENTATIVE_BY_INQUIRYID":
-                            Representative representative=inquiryManager.ReturnRepresentativeByInquiryId((int)newRequest.getParameters()[0]);
-                            if(representative!=null)
-                                response=new ResponseData(ResponseStatus.SCCESS,"ok","representative: "+representative.getID()+"g is handling your request.")
-                            response=new ResponseData(ResponseStatus.FAIL,"fail","fail");
+                            try {
+                                Representative representative = inquiryManager.ReturnRepresentativeByInquiryId((int) newRequest.getParameters()[0]);
+                                response = new ResponseData(ResponseStatus.SCCESS, "ok", "representative: " + representative.getID() + "g is handling your request.");
+                            }
+                            catch (Exception e){
+                                response = new ResponseData(ResponseStatus.FAIL, e.getMessage(), "fail");
+                            }
+                            break;
+                        case "GET_ALL_REPRESENTATIVES":
+                            try {
+                                Map<Representative, Inquiry> activeRepresentatives = representativeManager.getAllRepresentatives();
+                                response = new ResponseData(ResponseStatus.SCCESS, "activeRepresentatives", activeRepresentatives);
+                            }
+                               catch (Exception e){
+                                response=new ResponseData(ResponseStatus.FAIL,e.getMessage(),null);
+                            }
+
 
                     }
                     objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
