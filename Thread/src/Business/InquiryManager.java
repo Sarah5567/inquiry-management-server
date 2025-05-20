@@ -15,13 +15,12 @@ public class InquiryManager {
     private boolean isInquiryCreationActive = true;
     HandleFiles handleFiles=new HandleFiles();
     private static final BlockingQueue<Inquiry> queue ;
-    private Map<Integer,Inquiry>inquiryHandlingMap=new HashMap<>();
+    private Map<Representative,Inquiry>inquiryHandlingMap=new HashMap<>();
     static {
         queue=new LinkedBlockingQueue<>();
         //loadInquiry();
     }
     private InquiryManager() {
-        new MatchingThread().start();
     }
 
     public static InquiryManager getInstance(){
@@ -54,34 +53,7 @@ public class InquiryManager {
         }
         nextCodeVal=max;
     }
-    public Representative ReturnRepresentativeByInquiryId(int inquiryId){
-        HandleFiles handleFiles=new HandleFiles();
 
-        Inquiry inquiry=inquiryHandlingMap.get(inquiryId);
-        if(inquiry==null){
-            File directory=new File("History");
-            File[]directories=directory.listFiles();
-            for(File f:directories){
-                File[] files=f.listFiles();
-                for(File file:files){
-                    if(Integer.parseInt(file.getName())==inquiryId){
-                        inquiry=(Inquiry)handleFiles.readFile(file);
-                    }
-                }
-            }
-        }
-        if(inquiry==null)
-            return null;
-        Representative representative=null;
-        File directory=new File("Representative");
-        File[]representativeFiles=directory.listFiles();
-        for(File f:representativeFiles){
-            if(Integer.parseInt(f.getName())==inquiry.getRepresentativeID()) {
-                representative = (Representative) handleFiles.readFile(f);
-            }
-        }
-        return representative;
-    }
     public void inquiryCreation() {
         Inquiry currentInquiry=null;
         System.out.println("chose number:" +
@@ -113,20 +85,23 @@ public class InquiryManager {
         isInquiryCreationActive = false;
         System.exit(0);
     }
-//    public void processInquiryManager() {
-//        while (isInquiryCreationActive) {
-//            try {
-//                InquiryHandling inquiryHandling = new InquiryHandling(queue.take());
-//                if (inquiryHandling != null) {
-//                    inquiryHandling.start();
-//                }
-//            } catch (InterruptedException e) {
-//                System.out.println("Error processing inquiry: " + e.getMessage());
-//                Thread.currentThread().interrupt();
-//            }
-//        }
-//
-//    }
+    public void processInquiryManager() {
+
+        while (isInquiryCreationActive) {
+            try {
+                Inquiry currentInquiry = queue.take();
+                if (currentInquiry != null) {
+                    InquiryHandling inquiryHandling = new InquiryHandling(currentInquiry);
+                    inquiryHandling.start();
+                    handleFiles.moveInquiryToHistory(currentInquiry);
+                }
+            } catch (InterruptedException e) {
+                System.out.println("Error processing inquiry: " + e.getMessage());
+                Thread.currentThread().interrupt();
+            }
+        }
+
+    }
     public Queue<Inquiry> allInquiry(){
         return queue;
     }
@@ -134,12 +109,6 @@ public class InquiryManager {
         inquiry.setCode(nextCodeVal++);
         handleFiles.saveFile(inquiry);
         System.out.println(inquiry.getData());
-        inquiryHandlingMap.put(inquiry.getCode(),inquiry);
         queue.add(inquiry);
-    }
-    public void closeInquiry(Inquiry inquiry, Representative representative){
-        new HandleFiles().moveInquiryToHistory(inquiry);
-        inquiryHandlingMap.remove(inquiry.getCode());
-        RepresentativeManager.getInstance().getAvailableRepresentatives().add(representative);
     }
 }
