@@ -84,7 +84,7 @@ public class RepresentativeManager {
     public List<Inquiry> getAllInquiriesByRepresentative(Integer representativeID) {
         List<Inquiry> result = new ArrayList<>();
         HandleFiles handleFiles = new HandleFiles();
-        File file = new File("HISTORY");
+        File file = new File("History");
         File[] yearFolders = file.listFiles();
         for (File yearFolder : yearFolders) {
             File[] monthFolders = yearFolder.listFiles();
