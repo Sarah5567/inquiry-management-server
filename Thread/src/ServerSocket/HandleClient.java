@@ -2,6 +2,8 @@ package ServerSocket;
 import Business.InquiryManager;
 import ClientServer.*;
 import Data.Inquiry;
+import Data.Representative;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -39,6 +41,12 @@ public class HandleClient extends Thread{
                         case "TEST":
                             response = new ResponseData(ResponseStatus.SCCESS, "test", "test");
                             break;
+                        case "RETURN_REPRESENTATIVE_BY_INQUIRYID":
+                            Representative representative=inquiryManager.ReturnRepresentativeByInquiryId((int)newRequest.getParameters()[0]);
+                            if(representative!=null)
+                                response=new ResponseData(ResponseStatus.SCCESS,"ok","representative: "+representative.getID()+"g is handling your request.")
+                            response=new ResponseData(ResponseStatus.FAIL,"fail","fail");
+
                     }
                     objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
                     objectOutputStream.writeObject(response);

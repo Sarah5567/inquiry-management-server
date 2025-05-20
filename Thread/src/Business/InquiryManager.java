@@ -54,7 +54,34 @@ public class InquiryManager {
         }
         nextCodeVal=max;
     }
+    public Representative ReturnRepresentativeByInquiryId(int inquiryId){
+        HandleFiles handleFiles=new HandleFiles();
 
+        Inquiry inquiry=inquiryHandlingMap.get(inquiryId);
+        if(inquiry==null){
+            File directory=new File("History");
+            File[]directories=directory.listFiles();
+            for(File f:directories){
+                File[] files=f.listFiles();
+                for(File file:files){
+                    if(Integer.parseInt(file.getName())==inquiryId){
+                        inquiry=(Inquiry)handleFiles.readFile(file);
+                    }
+                }
+            }
+        }
+        if(inquiry==null)
+            return null;
+        Representative representative=null;
+        File directory=new File("Representative");
+        File[]representativeFiles=directory.listFiles();
+        for(File f:representativeFiles){
+            if(Integer.parseInt(f.getName())==inquiry.getRepresentativeID()) {
+                representative = (Representative) handleFiles.readFile(f);
+            }
+        }
+        return representative;
+    }
     public void inquiryCreation() {
         Inquiry currentInquiry=null;
         System.out.println("chose number:" +

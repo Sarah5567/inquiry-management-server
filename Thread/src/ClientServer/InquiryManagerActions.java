@@ -3,5 +3,6 @@ package ClientServer;
 public enum InquiryManagerActions {
     ALL_INQUIRY,
     ADD_INQUIRY,
-    TEST
+    TEST,
+    RETURN_REPRESENTATIVE_BY_INQUIRYID
 }
