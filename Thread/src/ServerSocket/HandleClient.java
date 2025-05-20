@@ -3,6 +3,7 @@ import Business.InquiryManager;
 import Business.RepresentativeManager;
 import ClientServer.*;
 import Data.Inquiry;
+import Data.InquiryStaus;
 import Data.Representative;
 
 import java.io.IOException;

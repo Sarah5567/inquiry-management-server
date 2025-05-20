@@ -4,6 +4,7 @@ import Data.*;
 import HandleStoreFiles.*;
 
 import java.io.File;
+import java.time.Month;
 import java.util.*;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -59,6 +60,51 @@ public class InquiryManager {
             }
         }
         nextCodeVal=max;
+    }
+
+    public int getNumberOfInquiriesInMonth(int year, int monthNum) {
+
+        if (monthNum < 1 || monthNum > 12) {
+            throw new IllegalArgumentException("מספר חודש לא חוקי. צריך להיות בין 1 ל-12.");
+        }
+        Month month = Month.of(monthNum);
+        int count = 0;
+        File monthDir = new File("History" + File.separator + year + File.separator + month);
+
+        if (!monthDir.exists() || !monthDir.isDirectory())
+            return 0;
+
+        File[] files = monthDir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile())
+                    count++;
+            }
+        }
+        return count;
+    }
+
+    public InquiryStaus getInquiryStatus(int inquiryId){
+        HandleFiles handleFiles=new HandleFiles();
+        Inquiry inquiry = inquiryHandlingMap.get(inquiryId);
+        InquiryStaus status=null;
+        if(inquiry!=null)
+            status =  inquiry.getStatus();
+        File directory=new File("History");
+        File[]directories=directory.listFiles();
+        for(File f:directories){
+            File[] files=f.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (Integer.parseInt(file.getName()) == inquiryId) {
+                        inquiry = (Inquiry) handleFiles.readFile(file);
+                        status = inquiry.getStatus();
+                    }
+                }
+            }
+        }
+
+        return status;
     }
     public Representative ReturnRepresentativeByInquiryId(int inquiryId){
         HandleFiles handleFiles=new HandleFiles();
