@@ -81,28 +81,25 @@ public class RepresentativeManager {
             ans = scanner1.nextLine();
         }
     }
-    public List<Inquiry> getAllInquiriesByRepresentative(int representativeID) {
-
-        File[] folders = {
-                new File("Complaint"),
-                new File("Request"),
-                new File("Question")
-        };
+    public List<Inquiry> getAllInquiriesByRepresentative(Integer representativeID) {
         List<Inquiry> result = new ArrayList<>();
         HandleFiles handleFiles = new HandleFiles();
-        for (File folder : folders) {
-            File[] files = folder.listFiles();
-            if (files != null)
-                for (File file : files) {
+        File file = new File("HISTORY");
+        File[] yearFolders = file.listFiles();
+        for (File yearFolder : yearFolders) {
+            File[] monthFolders = yearFolder.listFiles();
+            for (File monthFolder : monthFolders) {
+                File[] inquiries = monthFolder.listFiles();
+                for (File inquiryFile : inquiries) {
                     try {
                         IForSaving iForSaving = handleFiles.readFile(file);
-                        Inquiry inquiry = (Inquiry) iForSaving;
-                        if (inquiry.getRepresentativeID() == representativeID)
-                            result.add(inquiry);
+                        if (representativeID.equals((iForSaving.getData().split(",")[4])))
+                            result.add((Inquiry)iForSaving);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+            }
         }
         return result;
     }
