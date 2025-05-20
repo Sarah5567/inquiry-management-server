@@ -55,7 +55,7 @@ public class HandleClient extends Thread{
                             break;
                         case "GET_ALL_REPRESENTATIVES":
                             try {
-                                Map<Representative, Inquiry> activeRepresentatives = representativeManager.getAllRepresentatives();
+                                Map<Integer, Inquiry> activeRepresentatives = representativeManager.getAllRepresentatives();
                                 response = new ResponseData(ResponseStatus.SCCESS, "activeRepresentatives", activeRepresentatives);
                             }
                                catch (Exception e){
