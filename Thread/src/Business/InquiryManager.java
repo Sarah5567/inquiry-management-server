@@ -16,6 +16,12 @@ public class InquiryManager {
     HandleFiles handleFiles=new HandleFiles();
     private static final BlockingQueue<Inquiry> queue ;
     private Map<Integer,Inquiry>inquiryHandlingMap=new HashMap<>();
+    public Map<Integer, Inquiry> getInquiryHandlingMap() {
+        return inquiryHandlingMap;
+    }
+    public void setInquiryHandlingMap(Map<Integer, Inquiry> inquiryHandlingMap) {
+        this.inquiryHandlingMap = inquiryHandlingMap;
+    }
     static {
         queue=new LinkedBlockingQueue<>();
         //loadInquiry();
