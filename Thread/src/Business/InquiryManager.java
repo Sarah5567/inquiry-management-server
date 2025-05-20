@@ -54,6 +54,29 @@ public class InquiryManager {
         }
         nextCodeVal=max;
     }
+
+    public InquiryStaus getInquiryStatus(int inquiryId){
+        HandleFiles handleFiles=new HandleFiles();
+        Inquiry inquiry = inquiryHandlingMap.get(inquiryId);
+        InquiryStaus status=null;
+        if(inquiry!=null)
+            status =  inquiry.getStatus();
+        File directory=new File("History");
+        File[]directories=directory.listFiles();
+        for(File f:directories){
+            File[] files=f.listFiles();
+            if (files != null) {
+                for (File file : files) {
+                    if (Integer.parseInt(file.getName()) == inquiryId) {
+                        inquiry = (Inquiry) handleFiles.readFile(file);
+                        status = inquiry.getStatus();
+                    }
+                }
+            }
+        }
+
+        return status;
+    }
     public Representative ReturnRepresentativeByInquiryId(int inquiryId){
         HandleFiles handleFiles=new HandleFiles();
 
