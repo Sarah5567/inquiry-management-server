@@ -1,11 +1,13 @@
 package HandleStoreFiles;
 import Business.*;
 import Data.*;
-
 import java.io.*;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 public class HandleFiles {
 
@@ -92,9 +94,8 @@ public class HandleFiles {
         }
         return newObj == null ? representative : newObj;
     }
-    public void moveInquiryToHistory(IForSaving iforSavingToDelete){
+    public void moveInquiryToHistory(Inquiry inquiryToDelete){
         boolean foundToDelete = false;
-        Inquiry inquiryToDelete = (Inquiry)iforSavingToDelete;
         File[] folders = {
                 new File("Complaint"),
                 new File("Request"),
@@ -106,10 +107,10 @@ public class HandleFiles {
             if (files != null)
                 for (File file : files) {
                     try {
-                        Inquiry inquiryFromFile = (Inquiry) readFile(file);
-                        if (inquiryToDelete.getCode() == inquiryFromFile.getCode()) {
-                            deleteFile(iForSaving(inquiryFromFile));
-                            saveInquiryInHistory(iforSavingToDelete);
+                        IForSaving iForSavingFromFile =readFile(file);
+                        if (inquiryToDelete.getCode().equals(iForSavingFromFile.getData().split(",")[1])) {
+                            deleteFile(iForSavingFromFile);
+                            saveInquiryInHistory(iForSavingFromFile);
                             foundToDelete = true;
                             break;
                         }
@@ -118,20 +119,22 @@ public class HandleFiles {
                     }
                 }
         }
-        return result;
     }
-    public void saveInquiryInHistory(IForSaving iForSaving){
-        File file = new File("History");
+    public void saveInquiryInHistory(IForSaving iForSaving) {
+        LocalDateTime inquiryDate = LocalDateTime.parse(iForSaving.getData().split(",")[6]);
+        File file = new File("History" + File.separator + inquiryDate.getYear() + File.separator + inquiryDate.getMonth());
         if (!file.exists())
-            file.mkdir();
+            file.mkdirs();
         try {
-            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file + "\\" + iforSaving.getFileName()));
-            bufferedWriter.write(iforSaving.getData());
+            String fileName = inquiryDate.getDayOfMonth() + " " + iForSaving.getFileName();
+            BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(file + "\\" + fileName));
+            bufferedWriter.write(iForSaving.getData());
             bufferedWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
     }
+
 }
 
 
