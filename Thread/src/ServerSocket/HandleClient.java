@@ -51,8 +51,12 @@ public class HandleClient extends Thread{
                         case "RETURN_INQUIRY_STATUS":
                             InquiryStaus status = inquiryManager.getInquiryStatus((int)newRequest.getParameters()[0]);
                             if(status!=null)
-                                response = new ResponseData(ResponseStatus.SCCESS,"succe",status);
+                                response = new ResponseData(ResponseStatus.SCCESS,"success",status);
                             response = new ResponseData(ResponseStatus.FAIL,"failed",":(");
+                            break;
+                        case "RETURN_INQUIRIES_IN_MONTH":
+                            int countInMonth = inquiryManager.getNumberOfInquiriesInMonth((int)newRequest.getParameters()[0],(int)newRequest.getParameters()[0]);
+                            response = new ResponseData(ResponseStatus.SCCESS,"succe",countInMonth);
                             break;
 
                     }
