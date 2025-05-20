@@ -63,6 +63,15 @@ public class HandleClient extends Thread{
                                 response=new ResponseData(ResponseStatus.FAIL,e.getMessage(),null);
                             }
 
+                            Representative representative=inquiryManager.ReturnRepresentativeByInquiryId((int)newRequest.getParameters()[0]);
+                            if(representative!=null)
+                                response=new ResponseData(ResponseStatus.SCCESS,"ok","representative: "+representative.getID()+"g is handling your request.");
+                            response=new ResponseData(ResponseStatus.FAIL,"fail","fail");
+                        case "CANCEL_INQUIRY":
+                            if(inquiryManager.cancelInquiry((int)newRequest.getParameters()[0]))
+                                response = new ResponseData(ResponseStatus.SCCESS, "inquiry canceled", true);
+                            response = new ResponseData(ResponseStatus.FAIL, "inquiry was handled already", false);
+
 
                     }
                     objectOutputStream = new ObjectOutputStream(clientSocket.getOutputStream());
