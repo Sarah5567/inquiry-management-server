@@ -106,4 +106,18 @@ public class RepresentativeManager {
         }
         return result;
     }
+    public  Representative returnRepresentativeById(int id)
+    {
+        HandleFiles handleFiles=new HandleFiles();
+        File representativeDirectory=new File("Representative");
+        File []files=representativeDirectory.listFiles();
+        for(File f:files){
+            if(Integer.parseInt(f.getName())==id){
+                Representative representative=(Representative)handleFiles.readFile(f);
+                return representative;
+            }
+        }
+        return null;
+    }
+
 }
