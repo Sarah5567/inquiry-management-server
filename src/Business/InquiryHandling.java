@@ -8,7 +8,7 @@ public class InquiryHandling extends Thread  {
     private Representative representative;
     Scanner scanner = new Scanner(System.in);
     Random rand = new Random();
-    public InquiryHandling(Inquiry inquiry, Representative representative){
+    public InquiryHandling(Inquiry inquiry){
         this.inquiry = inquiry;
         this.representative = representative;
     }

@@ -50,3 +50,6 @@ Thumbs.db
 
 # IntelliJ module files
 *.iml
+
+# Thread directory
+Thread/

@@ -2,9 +2,10 @@ package Data;
 
 import HandleStoreFiles.IForSaving;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Representative implements IForSaving {
+public class Representative implements IForSaving, Serializable {
     private int ID;
     private String name;
     private  String className;
